@@ -35,3 +35,18 @@ npm test
 ```
 
 Las pruebas cubren fechas, límites entre meses, semanas, filtros y validación de datos importados. El servidor solo sirve los archivos públicos definidos en `server.js`.
+
+## Publicar en GitHub Pages
+
+La aplicación también funciona como web estática: GitHub Pages sirve directamente `index.html`, `styles.css`, `app.js` y `core.js`. No necesita ejecutar `server.js` ni instalar paquetes.
+
+1. En el repositorio, abre **Settings → Pages → Build and deployment** y elige **GitHub Actions** como **Source**.
+2. Sube los cambios de este proyecto a la rama `main`, incluyendo `.github/workflows/pages.yml` y `.nojekyll`.
+3. En **Actions**, espera a que termine **Publicar dashboard en GitHub Pages**. También puedes iniciarlo con **Run workflow**.
+4. La página estará en **https://davidgarciasolis.github.io/dashboard/** cuando el despliegue termine correctamente.
+
+El workflow publica únicamente los archivos públicos y permite una sola publicación simultánea, sin cancelar la que esté en curso. Las rutas de CSS y JavaScript son relativas para funcionar bajo `/dashboard/`.
+
+Si aparece **Deployment cancelled**, comprueba si hubo otra ejecución o cancelación del mismo commit. Cuando todas las ejecuciones anteriores hayan terminado, utiliza **Re-run failed jobs** en la última ejecución fallida. El aviso de `punycode` por sí solo no hace fallar la publicación. Si la cancelación persiste, consulta el estado de GitHub Pages en https://www.githubstatus.com/.
+
+Los datos guardados en `localhost` no aparecen automáticamente en GitHub Pages: exporta una copia desde la aplicación local e impórtala en la página publicada.
