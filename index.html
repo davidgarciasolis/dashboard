@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#294f42">
+  <meta name="description" content="Un espacio tranquilo para planificar tu día, organizar tus tareas y avanzar a tu ritmo.">
+  <title>día. — Tu espacio personal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23294f42'/%3E%3Ctext x='15' y='46' font-size='49' font-family='Georgia' fill='%23fff'%3Ed%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="./" aria-label="día, inicio">día<span>.</span></a>
+    <p class="brand-caption">UN POCO DE ORDEN, MÁS CALMA.</p>
+    <div class="workspace"><span class="workspace-icon">✳</span><div>Mi espacio personal<small>Haz sitio para lo importante</small></div></div>
+    <p class="nav-label">MI ORGANIZACIÓN</p>
+    <nav aria-label="Navegación principal">
+      <button class="nav-item active" data-view="today"><span data-icon="sun"></span> Mi día <span class="nav-count" id="today-count">0</span></button>
+      <button class="nav-item" data-view="week"><span data-icon="calendar"></span> Esta semana</button>
+      <button class="nav-item" data-view="projects"><span data-icon="grid"></span> Mis proyectos</button>
+      <button class="nav-item" data-view="completed"><span data-icon="check-circle"></span> Completadas</button>
+    </nav>
+    <div class="project-nav"><p class="nav-label">MIS ÁREAS <span>3</span></p>
+      <button data-project="trabajo"><i class="dot purple"></i> Trabajo <span id="work-count">0</span></button>
+      <button data-project="personal"><i class="dot orange"></i> Personal <span id="personal-count">0</span></button>
+      <button data-project="bienestar"><i class="dot green"></i> Bienestar <span id="wellness-count">0</span></button>
+    </div>
+    <div class="sidebar-note"><span>✧</span><p>Los pequeños pasos<br>también te llevan lejos.</p><small>Una cosa a la vez.</small></div>
+    <div class="sidebar-bottom"><div class="avatar">TÚ</div><div>Tu espacio, tu ritmo<small>Guardado en este navegador</small></div><span class="online-dot" title="Almacenamiento local"></span></div>
+  </aside>
+  <main>
+    <header class="topbar"><div class="breadcrumb">Mi espacio <span>/</span> <strong id="breadcrumb-view">Mi día</strong></div><div class="top-actions"><span class="local-badge"><i></i> Espacio personal</span><button class="icon-button" id="export-button" aria-label="Exportar copia de seguridad" title="Exportar tareas"><span data-icon="download"></span></button><button class="avatar small" id="help-button" aria-label="Información sobre tus datos">TÚ</button></div></header>
+    <div class="page-content">
+      <section class="page-heading"><div><p class="eyebrow" id="long-date"></p><h1 id="page-title">Hoy es un buen día<span>.</span></h1><p id="page-subtitle">Despeja tu mente. Dale un lugar a lo que importa.</p></div><button class="primary-button" id="new-task"><span data-icon="plus"></span> Nueva tarea</button></section>
+      <section class="stats-grid" aria-label="Resumen del día">
+        <div class="stat-card"><div class="stat-top"><span>Tareas del día</span><span class="stat-icon beige" data-icon="clipboard"></span></div><div class="stat-number" id="stat-total">0</div><small>Un paso cada vez</small></div>
+        <div class="stat-card"><div class="stat-top"><span>Completadas</span><span class="stat-icon mint" data-icon="check-circle"></span></div><div class="stat-number" id="stat-done">0 <span>/ 0</span></div><small id="done-caption">Todo empieza con una tarea</small></div>
+        <div class="stat-card"><div class="stat-top"><span>Por hacer</span><span class="stat-icon peach" data-icon="clock"></span></div><div class="stat-number" id="stat-pending">0</div><small id="pending-caption">Tienes el día por delante</small></div>
+        <div class="stat-card progress-card"><div><div class="stat-top"><span>Tu progreso</span></div><div class="stat-number" id="stat-percent">0<span>%</span></div><small id="progress-caption">Vamos a por el primer paso</small></div><div class="progress-ring" id="progress-ring"><span data-icon="sparkles"></span></div></div>
+      </section>
+      <div class="dashboard-grid">
+        <section class="card task-panel">
+          <div class="section-header"><div><h2 id="task-panel-title">Tu plan de hoy <span id="task-total-badge">0</span></h2><p id="task-panel-caption">Un lugar para todas esas cosas que quieres hacer.</p></div><div class="date-controls"><button class="icon-button" id="prev-date" aria-label="Día anterior"><span data-icon="chevron-left"></span></button><button id="date-label" class="date-label"></button><input type="date" id="date-picker" aria-label="Elegir fecha"><button class="icon-button" id="next-date" aria-label="Día siguiente"><span data-icon="chevron-right"></span></button></div></div>
+          <div class="task-toolbar"><div class="filter-tabs" role="group" aria-label="Filtrar tareas"><button class="active" data-filter="todas">Todas</button><button data-filter="pendientes">Pendientes</button><button data-filter="completadas">Completadas</button></div><label class="search-box"><span data-icon="search"></span><input id="search" placeholder="Buscar tarea…" aria-label="Buscar tareas"></label></div>
+          <div class="project-filter" id="project-filter" hidden><label for="project-select">Área</label><select id="project-select"><option value="todos">Todas las áreas</option><option value="trabajo">Trabajo</option><option value="personal">Personal</option><option value="bienestar">Bienestar</option></select></div>
+          <div id="task-list" class="task-list"></div>
+          <button class="add-task-row" id="add-task-row"><span data-icon="plus"></span> Añadir una nueva tarea <span class="keyboard-hint">N</span></button>
+          <div class="task-footer"><span><i class="dot green"></i> <span id="list-summary">Tu día empieza aquí</span></span><span>A tu ritmo, sin prisa.</span></div>
+        </section>
+        <aside class="right-column">
+          <section class="card week-card"><div class="section-header"><h2>Un vistazo a tu semana</h2><span data-icon="calendar"></span></div><div class="month-label" id="month-label"></div><div class="week-days" id="week-days"></div><div class="week-summary"><span class="tiny-icon" data-icon="sparkles"></span><p id="week-summary"></p></div></section>
+          <section class="focus-card"><div class="focus-title"><span data-icon="leaf"></span><span>UN MOMENTO DE FOCO</span><span class="focus-dot"></span></div><h2>Menos ruido.<br>Más concentración.</h2><p>Dedícale un ratito a una sola cosa.</p><div id="timer" class="timer" role="timer" aria-label="Tiempo restante">25<span>:</span>00</div><div class="timer-buttons"><button id="timer-toggle"><span data-icon="play"></span> Empezar sesión</button><button id="timer-reset" aria-label="Reiniciar temporizador"><span data-icon="reset"></span></button></div><small id="focus-status">25 minutos para avanzar a tu ritmo</small></section>
+          <section class="daily-note"><span class="note-spark">✧</span><div><h3>Una intención para hoy</h3><label for="daily-intention" class="sr-only">Tu intención del día</label><textarea id="daily-intention" maxlength="300" placeholder="¿Qué haría que hoy fuera un buen día?" rows="2"></textarea><span id="note-status">Solo para ti. Se guarda al escribir.</span></div></section>
+        </aside>
+      </div>
+      <footer class="page-footer"><span class="mini-brand">día.</span> Organiza tu día. Disfruta el camino.<button id="import-button">Importar copia de seguridad</button><input type="file" id="import-file" accept="application/json,.json" hidden></footer>
+    </div>
+  </main>
+  <dialog id="task-dialog"><form id="task-form"><div class="modal-header"><div><p class="eyebrow">HAZLE UN HUECO</p><h2 id="modal-title">Nueva tarea</h2></div><button type="button" class="icon-button" id="close-dialog" aria-label="Cerrar"><span data-icon="x"></span></button></div><label>¿Qué quieres hacer?<input name="title" id="task-title" required maxlength="180" placeholder="Un pequeño paso hacia tus objetivos" autocomplete="off"></label><div class="form-row"><label>Fecha<input type="date" name="date" required></label><label>Hora (opcional)<input type="time" name="time"></label></div><div class="form-row"><label>Área<select name="project"><option value="trabajo">Trabajo</option><option value="personal">Personal</option><option value="bienestar">Bienestar</option></select></label><label>Prioridad<select name="priority"><option value="media">Media</option><option value="alta">Alta</option><option value="baja">Baja</option></select></label></div><label>Notas (opcional)<textarea name="notes" rows="3" maxlength="2000" placeholder="Detalles que no quieres olvidar…"></textarea></label><div class="modal-actions"><button type="button" class="secondary-button" id="cancel-dialog">Cancelar</button><button type="submit" class="primary-button">Guardar tarea</button></div></form></dialog>
+  <dialog id="delete-dialog"><form method="dialog"><h2>¿Eliminar esta tarea?</h2><p>La tarea se quitará de tu lista.</p><div class="modal-actions"><button value="cancel" class="secondary-button">Conservar</button><button value="delete" class="danger-button">Eliminar tarea</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

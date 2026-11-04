@@ -1,0 +1,9 @@
+{
+  "name": "dia-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tu espacio para organizar el día y seguir tus tareas",
+  "scripts": { "dev": "node server.js", "start": "node server.js", "test": "node --test" },
+  "engines": { "node": ">=18" }
+}
